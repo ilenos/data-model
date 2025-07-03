@@ -6,7 +6,7 @@ Document and highlight areas of knowledge surrounding SQL, data modeling, and da
 `
 
 ## Requirements
-- admin priveleges to the target installation machine
+- admin privileges to the target installation machine
 - [uv](https://docs.astral.sh/uv/) - Python environment/dependency management
 - [docker desktop](https://www.docker.com/products/docker-desktop/) - deployment for local postgres instance
 
