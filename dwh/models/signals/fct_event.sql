@@ -10,6 +10,7 @@ WITH source AS (
         v.verb_key,
         o.object_key,
         p.product_key,
+        ev.event_ts::date AS day_date,
         ev.event_ts
         FROM {{ ref('stg_event') }} AS ev
         LEFT JOIN {{ ref('dim_verb') }} AS v
