@@ -86,6 +86,4 @@ erDiagram
     dim_product ||--o{ fct_event : "product_key"
     dim_user ||--o{ fct_event : "user_id"
     dim_verb ||--o{ fct_event : "verb_key"
-
-    classDef default fill:#a0bff0
 ```
