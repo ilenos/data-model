@@ -77,6 +77,7 @@ erDiagram
         string verb_key FK
         string object_key FK
         string product_key FK
+        date date_day FK
         timestamp event_ts
 
     }
