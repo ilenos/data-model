@@ -81,7 +81,7 @@ erDiagram
 
     }
     date ||--|| dim_date:::bg : "date_day"
-    dim_date ||--o{ fct_event : "event_ts"
+    dim_date ||--o{ fct_event : "date_day"
     dim_object ||--o{ fct_event : "object_key"
     dim_product ||--o{ fct_event : "product_key"
     dim_user ||--o{ fct_event : "user_id"
