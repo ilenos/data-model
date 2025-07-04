@@ -10,25 +10,292 @@ sources:
 
 models:
   - name: fct_event
-    description: "Fact table for an event"
+    description: "Fact table at the event level"
     columns:
       - name: id
-        data_tests:
+        tests:
           - unique
           - not_null
       - name: user_id
-        description: ""
-        data_tests:
+        description: "Foreign key to dim_user"
+        tests:
           - not_null
-          # - relationships:
-          #   to: ref('dim_user_t')
-          #   field: id
-  
-  - name: dim_user_t
-    description: "Contains all the user table information"
+          - relationships:
+              to: ref('dim_user')
+              field: user_id
+      - name: verb_key
+        description: "Foreign key to dim_verb"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_verb')
+              field: verb_key
+      - name: object_key
+        description: "Foreign key to dim_object"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_object')
+              field: object_key
+      - name: product_key
+        description: "Foreign key to dim_product"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
+      - name: date_day
+        description: "Date dimension to allow for time-based analysis."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_day
+      - name: event_ts
+        description: "Timestamp dimension to allow for time-based analysis.  This is the time the event occurred."
+        tests:
+          - not_null
+
+  - name: dim_user
+    description: "Contains all the user dimensions"
     columns:
-      - name: id
-        description: "The primary key for this table"
-        data_tests:
+      - name: user_id
+        description: "The primary key for this table."
+        tests:
           - unique
           - not_null
+  
+  - name: dim_object
+    description: "Contains all object dimensions"
+    columns:
+      - name: object_key
+        description: "Derived hash key for the object."
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: "Object description"
+        tests:
+          - unique
+          - not_null
+    
+  - name: dim_verb
+    description: "Contains all verb dimensions"
+    columns:
+      - name: verb_key
+        description: "Derived hash key for the verb."
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: "Verb description"
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_product
+    description: "Contains all product dimensions"
+    columns:
+      - name: product_key
+        description: "Derived hash key for the product."
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: "Product description"
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_date
+    description: "Contains the default dbt date and fiscal date dimensions"
+    columns:
+      - name: date_day
+        description: "The primary key for this table."
+        tests:
+          - unique
+          - not_null
+      - name: prior_date_day
+        description: "The date prior to date_day"
+      - name: next_date_day
+        description: "The date after date_day"
+      - name: prior_year_date_day
+        description: "The date in the prior year to date_day"
+      - name: prior_year_over_year_date_day
+        description: "The date in the prior year to date_day, but adjusted for leap years"
+      - name: day_of_week
+        description: "The day of the week for date_day"
+      - name: day_of_week_name
+        description: "The name of the day of the week for date_day"
+      - name: day_of_week_name_short
+        description: "The short name of the day of the week for date_day"
+      - name: day_of_month
+        description: "The day of the month for date_day"
+      - name: day_of_year
+        description: "The day of the year for date_day"
+      - name: week_start_date
+        description: "The start date of the week for date_day"
+      - name: week_end_date
+        description: "The end date of the week for date_day"
+      - name: prior_year_week_start_date
+        description: "The start date of the week for date_day in the prior year"
+      - name: prior_year_week_end_date
+        description: "The end date of the week for date_day in the prior year"
+      - name: week_of_year
+        description: "The week of the year for date_day"
+      - name: iso_week_start_date
+        description: "The ISO week start date for date_day"
+      - name: iso_week_end_date
+        description: "The ISO week end date for date_day"
+      - name: prior_year_iso_week_start_date
+        description: "The ISO week start date for date_day in the prior year"
+      - name: prior_year_iso_week_end_date
+        description: "The ISO week end date for date_day in the prior year"
+      - name: month_of_year
+        description: "The month of the year for date_day"
+      - name: month_name
+        description: "The name of the month for date_day"
+      - name: month_name_short
+        description: "The short name of the month for date_day"
+      - name: month_start_date
+        description: "The start date of the month for date_day"
+      - name: month_end_date
+        description: "The end date of the month for date_day"
+      - name: prior_year_month_start_date
+        description: "The start date of the month for date_day in the prior year"
+      - name: prior_year_month_end_date
+        description: "The end date of the month for date_day in the prior year"
+      - name: quarter_of_year
+        description: "The quarter of the year for date_day"
+      - name: quarter_start_date
+        description: "The start date of the quarter for date_day"
+      - name: quarter_end_date
+        description: "The end date of the quarter for date_day"
+      - name: year_number
+        description: "The year number for date_day"
+      - name: year_start_date
+        description: "The start date of the year for date_day"
+      - name: year_end_date
+        description: "The end date of the year for date_day"
+      - name: fiscal_week_of_year
+        description: "The fiscal week of the year for date_day"
+      - name: fiscal_week_of_period
+        description: "The fiscal week of the period for date_day"
+      - name: fiscal_period_number
+        description: "The fiscal period number for date_day"
+      - name: fiscal_quarter_number
+        description: "The fiscal quarter number for date_day"
+      - name: fiscal_period_of_quarter
+        description: "The fiscal period of the quarter for date_day"
+
+  - name: date
+    description: "Contains the default dbt date dimensions"
+    columns:
+      - name: date_day
+        description: "The primary key for this table."
+        tests:
+          - unique
+          - not_null
+      - name: prior_date_day
+        description: "The date prior to date_day"
+      - name: next_date_day
+        description: "The date after date_day"
+      - name: prior_year_date_day
+        description: "The date in the prior year to date_day"
+      - name: prior_year_over_year_date_day
+        description: "The date in the prior year to date_day, but adjusted for leap years"
+      - name: day_of_week
+        description: "The day of the week for date_day"
+      - name: day_of_week_name
+        description: "The name of the day of the week for date_day"
+      - name: day_of_week_name_short
+        description: "The short name of the day of the week for date_day"
+      - name: day_of_month
+        description: "The day of the month for date_day"
+      - name: day_of_year
+        description: "The day of the year for date_day"
+      - name: week_start_date
+        description: "The start date of the week for date_day"
+      - name: week_end_date
+        description: "The end date of the week for date_day"
+      - name: prior_year_week_start_date
+        description: "The start date of the week for date_day in the prior year"
+      - name: prior_year_week_end_date
+        description: "The end date of the week for date_day in the prior year"
+      - name: week_of_year
+        description: "The week of the year for date_day"
+      - name: iso_week_start_date
+        description: "The ISO week start date for date_day"
+      - name: iso_week_end_date
+        description: "The ISO week end date for date_day"
+      - name: prior_year_iso_week_start_date
+        description: "The ISO week start date for date_day in the prior year"
+      - name: prior_year_iso_week_end_date
+        description: "The ISO week end date for date_day in the prior year"
+      - name: month_of_year
+        description: "The month of the year for date_day"
+      - name: month_name
+        description: "The name of the month for date_day"
+      - name: month_name_short
+        description: "The short name of the month for date_day"
+      - name: month_start_date
+        description: "The start date of the month for date_day"
+      - name: month_end_date
+        description: "The end date of the month for date_day"
+      - name: prior_year_month_start_date
+        description: "The start date of the month for date_day in the prior year"
+      - name: prior_year_month_end_date
+        description: "The end date of the month for date_day in the prior year"
+      - name: quarter_of_year
+        description: "The quarter of the year for date_day"
+      - name: quarter_start_date
+        description: "The start date of the quarter for date_day"
+      - name: quarter_end_date
+        description: "The end date of the quarter for date_day"
+      - name: year_number
+        description: "The year number for date_day"
+      - name: year_start_date
+        description: "The start date of the year for date_day"
+      - name: year_end_date
+        description: "The end date of the year for date_day"
+  
+  - name: lu_date_group
+    description: "Lookup table for date groups, used to categorize dates into meaningful groups."
+    columns:
+      - name: id
+        description: "The primary key for this table."
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: "The description of the date group"
+        tests:
+          - unique
+          - not_null
+
+  - name: rel_date_group
+    description: "Relation table used to walk through date groups."
+    columns:
+      - name: date_day
+        description: "The primary key for this table."
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">1000"
+                warn_if: ">100"
+      - name: date_group_id
+        description: "Foreign key to lu_date_group"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('lu_date_group')
+              field: id
+      - name: reporting_day
+        description: "Use this date when attempting to walk through date groups."
+        tests:
+          - not_null:
+              config:
+                severity: error
+                error_if: ">1000"
+                warn_if: ">100"
