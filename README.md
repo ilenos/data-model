@@ -1,7 +1,9 @@
 # Data Model
 
 ## Installation/Development
-If you'd like to test out the code yourself, please take a look at [INSTALLATION.md](./INSTALLATION.md)
+If you'd like to test out the code yourself, please take a look at [INSTALLATION.md](./INSTALLATION.md).
+
+If you'd like to take a look at what the dbt documentation can look like, please see [here](https://ilenos.github.io/data-model)
 
 ## Entity Relationship Diagram
 ```mermaid
