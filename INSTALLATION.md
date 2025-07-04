@@ -42,3 +42,10 @@ dbt seed
 dbt run
 dbt test
 ```
+
+### Documentation
+```sh
+# navigate to project_root/dwh
+dbt docs generate --static
+dbt docs serve --port 8081 # change the port because adminer is already using 8080
+```
