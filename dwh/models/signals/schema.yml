@@ -8,6 +8,21 @@ sources:
     tables:
       - name: event
 
+seeds:
+  - name: lu_date_group
+    description: "Lookup table for date groups, used to categorize dates into meaningful groups."
+    columns:
+      - name: id
+        description: "The primary key for this table."
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: "The description of the date group"
+        tests:
+          - unique
+          - not_null
+
 models:
   - name: fct_event
     description: "Fact table at the event level"
@@ -258,20 +273,6 @@ models:
         description: "The start date of the year for date_day"
       - name: year_end_date
         description: "The end date of the year for date_day"
-  
-  - name: lu_date_group
-    description: "Lookup table for date groups, used to categorize dates into meaningful groups."
-    columns:
-      - name: id
-        description: "The primary key for this table."
-        tests:
-          - unique
-          - not_null
-      - name: description
-        description: "The description of the date group"
-        tests:
-          - unique
-          - not_null
 
   - name: rel_date_group
     description: "Relation table used to walk through date groups."
