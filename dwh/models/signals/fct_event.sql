@@ -1,6 +1,9 @@
 {{
     config(
-        materialized = "table"
+        materialized = "table",
+        indexes=[
+            {'columns': ['date_day'], 'type': 'hash', 'unique': False},
+        ]
     )
 }}
 
@@ -10,7 +13,7 @@ WITH source AS (
         v.verb_key,
         o.object_key,
         p.product_key,
-        ev.event_ts::date AS day_date,
+        ev.event_ts::date AS date_day,
         ev.event_ts
         FROM {{ ref('stg_event') }} AS ev
         LEFT JOIN {{ ref('dim_verb') }} AS v

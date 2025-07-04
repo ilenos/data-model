@@ -1,0 +1,11 @@
+id,description
+"wtd","Week to date"
+"mtd","Month to date"
+"qtd","Quarter to date"
+"ytd","Year to date"
+"lw","Last week"
+"lm","Last month"
+"lq","Last quarter"
+"ly","Last year"
+"r7","Rolling 7 days"
+"r30","Rolling 30 days"

@@ -1,6 +1,9 @@
 {{
     config(
-        materialized = "table"
+        materialized = "table",
+        indexes=[
+            {'columns': ['date_day'], 'type': 'btree', 'unique': True},
+        ]
     )
 }}
 with date_dimension as (

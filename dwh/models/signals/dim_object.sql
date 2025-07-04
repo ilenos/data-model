@@ -1,6 +1,9 @@
 {{
     config(
-        materialized = "table"
+        materialized = "table",
+        indexes=[
+            {'columns': ['object_key'], 'type': 'btree', 'unique': True},
+        ]
     )
 }}
 
