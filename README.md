@@ -12,11 +12,13 @@ erDiagram
         date date_day PK "Unique B-tree index"
         date prior_date_day
         date next_date_day
+        etc etc "Kept small for clarity"
     }
     dim_date {
         date date_day PK "Unique B-tree index"
         date prior_date_day
         date next_date_day
+        etc etc "Kept small for clarity"
     }
     dim_object {
         string object_key PK "Unique B-tree index"
