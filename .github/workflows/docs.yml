@@ -1,0 +1,36 @@
+name: Deploy dbt Docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # Adjust Python version as needed
+
+      - name: Install dependencies
+        run: |
+          pip install dbt-core dbt-postgres  # Install dbt and your adapter
+          pip install ghp-import
+
+      - name: Run dbt docs generate
+        run: dbt docs generate
+
+      - name: Copy docs to /docs folder
+        run: |
+          mkdir docs
+          cp -r target/* docs/
+
+      - name: Deploy to GitHub Pages
+        run: |
+          ghp-import docs
+          git push origin gh-pages
