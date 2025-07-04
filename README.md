@@ -179,4 +179,14 @@ SELECT *
 <br><hr>
 
 #### Other questions that can be answered
-1. Year over year comparisons become easy as an analyst is able to grab each year's dataset
+1. Year over year comparisons become easy as an analyst is able to grab each year's dataset and drill down as needed (by quarter, week, day, etc..)
+2. User activity and trend analysis
+3. Aggregation tables can easily be built off the fact to help with common query paths (weekly rollup, monthly rollup, etc)
+4. Product popularity and adoption rate
+5. User profile trend towards and product
+6. Click analysis (page load to action timings; indicates information accessibility)
+
+#### Additional Benefits
+1. Dimensions are easily expanded now. No logic changes needed.
+2. Additional time ranges can be added easily if they don't match existing (shifted fiscal ranges)
+3. Categories can be built of top of the dims for bucketing (product)
